@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../components/navBar';
-import Dashboard from '../components/dashboard';
 import Tables from '../components/table';
 
 const Departamento = () => {
@@ -8,8 +7,7 @@ const Departamento = () => {
     <div className="h-screen w-full flex flex-col bg-[#D9D9D9]">
       <Navbar />
       <div className="flex flex-1 sm:flex-row">
-        <div className="sm:w-64 bg-gray-500">
-          <Dashboard />
+        <div className="sm:w-64">
         </div>
         <div className="flex-1 p-4">
           <Tables />

@@ -7,10 +7,9 @@ const Informe = () => {
     <div className="h-screen w-full flex flex-col bg-[#D9D9D9]">
       <Navbar />
       <div className="flex flex-1 sm:flex-row">
-        <div className="sm:w-64 bg-gray-500">
-          <Dashboard />
+        <div className="sm:w-64">
         </div>
-        <div className="relative overflow-x-auto shadow-md w-full mt-8 px-4">
+        <div className="relative overflow-x-auto shadow-md w-5/6 mt-8 px-4">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>

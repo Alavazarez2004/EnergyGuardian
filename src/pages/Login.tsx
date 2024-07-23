@@ -6,15 +6,23 @@ import email from '../assets/email.png';
 import password from '../assets/password.png';
 
 const LoginView = () => {
+  const handleLogin = (event) => {
+    event.preventDefault();
+    // Aquí puedes agregar cualquier lógica de autenticación antes de redirigir.
+    
+    // Redirigir a la vista Home
+    document.getElementById('login-link').click();
+  };
+
   return (
     <div className="flex h-screen bg-[#1A2038]">
       <div className="w-1/2 flex justify-center items-center">
-      <img src={logo} alt="Logo" className="" />
+        <img src={logo} alt="Logo" className="" />
       </div>
       <div className="w-1/2 flex justify-center items-center">
         <div className="bg-white p-12 rounded-lg shadow-md w-full max-w-lg">
           <h2 className="text-3xl font-bold mb-8">INICIO DE SESIÓN</h2>
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="mb-6 flex items-center">
               <input 
                 type="email" 
@@ -44,7 +52,9 @@ const LoginView = () => {
 
             {/* Botón de inicio de sesión */}
             <button type="submit" className="w-full bg-[#415292] hover:bg-[#3a4671] text-white py-3 text-lg rounded-md">
+              <Link to="/Home" id="login-link">
               Iniciar sesión
+              </Link>
             </button>
           </form>
           <div className="mt-4 flex items-center">

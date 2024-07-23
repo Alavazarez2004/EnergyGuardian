@@ -1,7 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Navbar from '../components/navBar';
-import Dashboard from '../components/dashboard';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from 'recharts';
 import { useReactToPrint } from 'react-to-print';
 
 const data = [
@@ -14,6 +13,7 @@ const data = [
 ];
 
 const Grafica = () => {
+  const [chartType, setChartType] = useState('line');
   const chartRef = useRef();
 
   const handlePrint = useReactToPrint({
@@ -21,15 +21,32 @@ const Grafica = () => {
     documentTitle: 'Nivel de Voltaje',
   });
 
+  const handleChartTypeChange = (event) => {
+    setChartType(event.target.value);
+  };
+
   return (
     <div className="h-screen w-full flex flex-col bg-[#D9D9D9]">
       <Navbar />
-      <div className="flex flex-1 sm:flex-row">
-        <div className="sm:w-64 bg-gray-500">
-          <Dashboard />
+      <div className="flex flex-col flex-1 p-4">
+        <div className="flex flex-col items-end mb-4">
+          <select 
+            value={chartType}
+            onChange={handleChartTypeChange}
+            className="px-4 py-2 border rounded mb-4"
+          >
+            <option value="line">Gráfica Lineal</option>
+            <option value="bar">Gráfica de Barras</option>
+          </select>
+          <button
+            onClick={handlePrint}
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Generar PDF
+          </button>
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center p-4">
-          <div ref={chartRef} className="w-full h-full flex justify-center items-center">
+        <div ref={chartRef} className="w-full flex justify-center items-center">
+          {chartType === 'line' ? (
             <LineChart width={800} height={500} data={data}>
               <XAxis dataKey="name" />
               <YAxis />
@@ -38,13 +55,16 @@ const Grafica = () => {
               <Legend />
               <Line type="monotone" dataKey="voltaje" stroke="#8884d8" />
             </LineChart>
-          </div>
-          <button
-            onClick={handlePrint}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-          >
-            Generar PDF
-          </button>
+          ) : (
+            <BarChart width={800} height={500} data={data}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <CartesianGrid strokeDasharray="3 3" />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="voltaje" fill="#8884d8" />
+            </BarChart>
+          )}
         </div>
       </div>
     </div>
