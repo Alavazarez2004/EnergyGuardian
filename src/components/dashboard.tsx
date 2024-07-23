@@ -2,6 +2,7 @@ import React from 'react';
 
 import inicio from '../assets/inicio.png';
 import reportes from '../assets/reportes.png';
+import estadisticas from '../assets/estadisticas.png';
 import graficas from '../assets/graficas.png';
 import notificaciones from '../assets/notificacion.png';
 import cerrarsesion from '../assets/cerrarsesion.png';
@@ -17,6 +18,10 @@ const Dashboard = () => {
         <a href="/Informes" className="flex items-center text-white mb-4">
           <img src={reportes} alt="Reportes" className="w-10 h-10 mr-2" />
           Reportes
+        </a>
+        <a href="/Estadisticas" className="flex items-center text-white mb-4">
+          <img src={estadisticas} alt="Estadisticas" className="w-10 h-10 mr-2" />
+          Estadisticas
         </a>
         <a href="/Graficas" className="flex items-center text-white mb-4">
           <img src={graficas} alt="Gráficas" className="w-10 h-10 mr-2" />

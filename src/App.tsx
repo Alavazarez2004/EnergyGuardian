@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Registro from './pages/Registro';
 import Home from './pages/Home';
 import Departamentos from './pages/Departamento';
+import Estadisticas from './pages/Estadistica';
 import Informes from './pages/Informe';
 import Alertas from './pages/Alerta';
 import Graficas from './pages/Grafica';
@@ -18,6 +19,7 @@ function App() {
             <Route path="/Home" element={<Home />} />
             <Route path="/Departamentos" element={<Departamentos />} />
             <Route path="/Informes" element={<Informes />} />
+            <Route path="/Estadisticas" element={<Estadisticas />} />
             <Route path="/Alertas" element={<Alertas />} />
             <Route path="/Graficas" element={<Graficas />} />
         </Routes>

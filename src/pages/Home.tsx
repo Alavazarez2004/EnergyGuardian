@@ -26,7 +26,7 @@ const Home = () => {
   };
 
   return (
-    <div className="h-screen w-full flex flex-col">
+    <div className="h-screen w-full flex flex-col bg-[#D9D9D9]">
       <Navbar />
       <div className="flex flex-1 sm:flex-row">
         <div className="sm:w-64 bg-gray-500">

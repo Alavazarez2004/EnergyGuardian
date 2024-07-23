@@ -1,5 +1,6 @@
 import React from 'react';
 
+import logo from '../assets/Logo_Empresa.png';
 import usuario from '../assets/usuario.png';
 import email from '../assets/email.png';
 import password from '../assets/password.png';
@@ -9,7 +10,7 @@ const RegistroView = () => {
   return (
     <div className="flex h-screen bg-[#1A2038]">
       <div className="w-1/2 flex justify-center items-center">
-        <div className="text-white text-6xl">IMG</div>
+      <img src={logo} alt="Logo" className="" />
       </div>
       <div className="w-1/2 flex justify-center items-center">
         <div className="bg-white p-12 rounded-lg shadow-md w-full max-w-lg">
