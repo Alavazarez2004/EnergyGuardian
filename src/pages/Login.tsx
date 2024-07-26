@@ -1,37 +1,69 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../assets/Logo_Empresa.png';
-import email from '../assets/email.png';
-import password from '../assets/password.png';
+import correo from '../assets/email.png';
+import contra from '../assets/password.png';
 
 const LoginView = () => {
-  const handleLogin = (event) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Aquí puedes agregar cualquier lógica de autenticación antes de redirigir.
-    
-    // Redirigir a la vista Home
-    document.getElementById('login-link').click();
+
+    try {
+      const response = await fetch('http://localhost:3000/api/users/login', { // Cambia esta URL según tu backend
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Guarda el token o información del usuario si es necesario
+        console.log('Login successful:', data);
+        navigate('/Home'); // Redirige a la vista Home
+      } else {
+        const errorData = await response.json();
+        console.error('Login failed:', errorData.message);
+        setError(errorData.message || 'Login failed'); // Muestra un mensaje de error al usuario
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      setError('Error during login'); // Maneja cualquier error de red o inesperado
+    }
   };
 
   return (
-    <div className="flex h-screen bg-[#1A2038]">
+    <div className="flex h-screen bg-orange-100">
       <div className="w-1/2 flex justify-center items-center">
         <img src={logo} alt="Logo" className="" />
       </div>
       <div className="w-1/2 flex justify-center items-center">
         <div className="bg-white p-12 rounded-lg shadow-md w-full max-w-lg">
           <h2 className="text-3xl font-bold mb-8">INICIO DE SESIÓN</h2>
+          {error && (
+            <div className="mb-4 p-3 bg-red-200 text-red-800 rounded-md">
+              {error}
+            </div>
+          )}
           <form onSubmit={handleLogin}>
             <div className="mb-6 flex items-center">
               <input 
                 type="email" 
                 id="email" 
                 placeholder="Email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required 
                 className="border border-gray-300 p-4 w-full text-lg rounded-md"
               />
-              <img src={email} alt="Email" className="h-8 w-8 ml-2" />
+              <img src={correo} alt="Email" className="h-8 w-8 ml-2" />
             </div>
             
             <div className="mb-6 flex items-center">
@@ -39,10 +71,12 @@ const LoginView = () => {
                 type="password" 
                 id="password" 
                 placeholder="Contraseña" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required 
                 className="border border-gray-300 p-4 w-full text-lg rounded-md"
               />
-              <img src={password} alt="Contraseña" className="h-8 w-8 ml-2" />
+              <img src={contra} alt="Contraseña" className="h-8 w-8 ml-2" />
             </div>
             
             {/* Enlace para olvidar la contraseña */}
@@ -51,10 +85,11 @@ const LoginView = () => {
             </Link>
 
             {/* Botón de inicio de sesión */}
-            <button type="submit" className="w-full bg-[#415292] hover:bg-[#3a4671] text-white py-3 text-lg rounded-md">
-              <Link to="/Home" id="login-link">
+            <button 
+              type="submit" 
+              className="w-full bg-[#415292] hover:bg-[#3a4671] text-white py-3 text-lg rounded-md"
+            >
               Iniciar sesión
-              </Link>
             </button>
           </form>
           <div className="mt-4 flex items-center">
